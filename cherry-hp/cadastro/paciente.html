@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Paciente - Clínica Médica</title>
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CherryHP</h2>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div onclick="window.location.href = '../dashboard/index.html'" class="menu-item" data-page="dashboard">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div onclick="window.location.href = '../dashboard/pacientes.html'" class="menu-item active" data-page="pacientes">
+                    <span>👨‍👩‍👧‍👦</span> Pacientes
+                </div>
+                <div onclick="window.location.href = '../dashboard/consultas.html'" class="menu-item" data-page="consultas">
+                    <span>📅</span> Consultas
+                </div>
+                <div onclick="window.location.href = '../dashboard/medicos.html'" class="menu-item" data-page="medicos">
+                    <span>👨‍⚕️</span> Médicos
+                </div>
+                <div onclick="window.location.href = '../dashboard/prontuarios.html'" class="menu-item" data-page="prontuarios">
+                    <span>📋</span> Prontuários
+                </div>
+                <div onclick="window.location.href = '../dashboard/financeiro.html'" class="menu-item" data-page="financeiro">
+                    <span>💰</span> Financeiro
+                </div>
+                <div onclick="window.location.href = '../dashboard/configuracoes.html'" class="menu-item" data-page="configuracoes">
+                    <span>⚙️</span> Configurações
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Cadastro de Paciente</h1>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                    <button class="logout-btn">Sair</button>
+                </div>
+            </div>
+            
+            <div class="page-title">
+                <h2>Preencha os dados do paciente</h2>
+                <button onclick="window.location.href = '../dashboard/pacientes.html'" class="btn btn-danger">Cancelar</button>
+            </div>
+            
+            <div class="form-container">
+                <form id="paciente-form" class="register-form">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados Pessoais</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="data_nasc">Data de Nascimento</label>
+                                <input type="date" id="data_nasc" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="sexo">Sexo</label>
+                                <select id="sexo" required>
+                                    <option value="">Selecione</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                    <option value="O">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Contato</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="endereco">Endereço</label>
+                            <input type="text" id="endereco">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cidade">Cidade</label>
+                                <input type="text" id="cidade">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="estado">Estado</label>
+                                <select id="estado">
+                                    <option value="">Selecione</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="MG">Minas Gerais</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep" placeholder="00000-000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Informações Médicas</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tipo_sanguineo">Tipo Sanguíneo</label>
+                                <select id="tipo_sanguineo">
+                                    <option value="">Selecione</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="alergias">Alergias</label>
+                                <input type="text" id="alergias" placeholder="Liste as alergias separadas por vírgula">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medicamentos">Medicamentos em Uso</label>
+                            <textarea id="medicamentos"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="historico">Histórico Médico</label>
+                            <textarea id="historico"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-danger" onclick="window.location.href = '../dashboard/pacientes.html'">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Paciente</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+    <script>
+        const STORAGE_KEY = 'cherryhp_pacientes';
+
+        // Helper para ler dados
+        function getPatients() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar parâmetros da URL para modo de edição
+            const urlParams = new URLSearchParams(window.location.search);
+            const patientId = urlParams.get('id');
+            const isEdit = urlParams.get('edit') === 'true';
+            
+            if (patientId && isEdit) {
+                loadPatientData(patientId);
+            }
+            
+            // Manipular envio do formulário
+            document.getElementById('paciente-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                savePatient(patientId);
+            });
+        });
+
+        function loadPatientData(id) {
+            const patients = getPatients();
+            const data = patients.find(p => p.id == id);
+            
+            if (data) {
+                // Alterar títulos da UI
+                document.querySelector('.header h1').innerText = 'Editar Paciente';
+                document.querySelector('.page-title h2').innerText = `Editando Paciente #${id}`;
+                document.querySelector('.form-actions button[type="submit"]').innerText = 'Salvar Alterações';
+                
+                // Preencher formulário
+                document.getElementById('nome').value = data.nome || '';
+                document.getElementById('cpf').value = data.cpf || '';
+                document.getElementById('data_nasc').value = data.data_nasc || '';
+                document.getElementById('sexo').value = data.sexo || '';
+                document.getElementById('telefone').value = data.telefone || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('endereco').value = data.endereco || '';
+                document.getElementById('cidade').value = data.cidade || '';
+                document.getElementById('estado').value = data.estado || '';
+                document.getElementById('cep').value = data.cep || '';
+                document.getElementById('tipo_sanguineo').value = data.tipo_sanguineo || '';
+                document.getElementById('alergias').value = data.alergias || '';
+                document.getElementById('medicamentos').value = data.medicamentos || '';
+                document.getElementById('historico').value = data.historico || '';
+            }
+        }
+
+        function savePatient(existingId) {
+            let patients = getPatients();
+            
+            // Coletar dados do form
+            const formData = {
+                nome: document.getElementById('nome').value,
+                cpf: document.getElementById('cpf').value,
+                data_nasc: document.getElementById('data_nasc').value,
+                sexo: document.getElementById('sexo').value,
+                telefone: document.getElementById('telefone').value,
+                email: document.getElementById('email').value,
+                endereco: document.getElementById('endereco').value,
+                cidade: document.getElementById('cidade').value,
+                estado: document.getElementById('estado').value,
+                cep: document.getElementById('cep').value,
+                tipo_sanguineo: document.getElementById('tipo_sanguineo').value,
+                alergias: document.getElementById('alergias').value,
+                medicamentos: document.getElementById('medicamentos').value,
+                historico: document.getElementById('historico').value,
+            };
+
+            if (existingId) {
+                // --- ATUALIZAR EXISTENTE ---
+                const index = patients.findIndex(p => p.id == existingId);
+                if (index !== -1) {
+                    // Mescla os dados do form com os dados antigos que não estão no form (ex: id, categoria)
+                    const updatedPatient = { ...patients[index], ...formData };
+                    patients[index] = updatedPatient;
+                    alert('Paciente atualizado com sucesso!');
+                }
+            } else {
+                // --- CRIAR NOVO ---
+                formData.id = Date.now(); // Gera ID único baseado no timestamp
+                formData.status = 'active';
+                formData.categoria = 'Iniciante';
+                formData.totalSpent = 0;
+                formData.consultas = 0;
+                formData.ultima_consulta = '-';
+                
+                patients.push(formData);
+                alert('Paciente cadastrado com sucesso!');
+            }
+
+            // Salvar no LocalStorage
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(patients));
+
+            // Redirecionar
+            window.location.href = '../dashboard/pacientes.html';
+        }
+    </script>
+</body>
+</html>

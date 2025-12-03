@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prontuários - Clínica Médica</title>
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CherryHP</h2>
+            </div>
+            
+           <div class="sidebar-menu">
+                <div onclick="window.location.href = 'index.html'" class="menu-item " data-page="dashboard">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div onclick="window.location.href = 'pacientes.html'" class="menu-item" data-page="pacientes">
+                    <span>👨‍👩‍👧‍👦</span> Pacientes
+                </div>
+                <div onclick="window.location.href = 'consultas.html'" class="menu-item" data-page="consultas">
+                    <span>📅</span> Consultas
+                </div>
+                <div onclick="window.location.href = 'medicos.html'" class="menu-item" data-page="medicos">
+                    <span>👨‍⚕️</span> Médicos
+                </div>
+                <div onclick="window.location.href = 'prontuarios.html'" class="menu-item active" data-page="prontuarios">
+                    <span>📋</span> Prontuários
+                </div>
+                <div onclick="window.location.href = 'financeiro.html'" class="menu-item" data-page="financeiro">
+                    <span>💰</span> Financeiro
+                </div>
+                <div onclick="window.location.href = 'configuracoes.html'" class="menu-item" data-page="configuracoes">
+                    <span>⚙️</span> Configurações
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Prontuários Eletrônicos</h1>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                    <button class="logout-btn">Sair</button>
+                </div>
+            </div>
+            
+            <div class="page-title">
+                <h2>Gerenciamento de Prontuários</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar paciente...">
+                    <button class="btn" id="searchButton">Buscar</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Histórico de Atendimentos</h3>
+                    <div class="filter-options">
+                        <select id="filterPatient">
+                            <option value="">Todos os pacientes</option>
+                            <option value="1001">João Silva</option>
+                            <option value="1002">Maria Oliveira</option>
+                        </select>
+                        <select id="filterDoctor">
+                            <option value="">Todos os médicos</option>
+                            <option value="1">Dra. Ana Souza</option>
+                            <option value="2">Dr. Carlos Mendes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="medical-records" id="recordsContainer">
+                    <div class="record" data-patient="1001" data-doctor="1">
+                        <div class="record-header">
+                            <h4>Consulta em 10/05/2023</h4>
+                            <span class="doctor">Dra. Ana Souza - Cardiologia</span>
+                        </div>
+                        <div class="record-content">
+                            <div class="record-section">
+                                <h5>Anamnese</h5>
+                                <p>Paciente relata dor no peito há 3 dias, com irradiação para braço esquerdo. Nega falta de ar ou tonturas.</p>
+                            </div>
+                            <div class="record-section">
+                                <h5>Exame Físico</h5>
+                                <p>PA: 140/90 mmHg, FC: 88 bpm, SatO2: 98%. Ausculta cardíaca com bulhas normofonéticas, sem sopros.</p>
+                            </div>
+                            <div class="record-section">
+                                <h5>Diagnóstico</h5>
+                                <p>Angina pectoris. Suspeita de doença arterial coronariana.</p>
+                            </div>
+                            <div class="record-section">
+                                <h5>Conduta</h5>
+                                <p>Solicitado ECG, ecocardiograma e exames laboratoriais. Prescrito AAS 100mg/dia e repouso relativo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="record" data-patient="1002" data-doctor="2">
+                        <div class="record-header">
+                            <h4>Consulta em 15/03/2023</h4>
+                            <span class="doctor">Dr. Carlos Mendes - Pediatria</span>
+                        </div>
+                        <div class="record-content">
+                            <div class="record-section">
+                                <h5>Anamnese</h5>
+                                <p>Criança com febre há 2 dias, tosse produtiva e dificuldade para alimentar.</p>
+                            </div>
+                            <div class="record-section">
+                                <h5>Exame Físico</h5>
+                                <p>TA: 90/60 mmHg, FC: 110 bpm, FR: 28 rpm, Temp: 38.5°C. Ausculta pulmonar com roncos difusos.</p>
+                            </div>
+                            <div class="record-section">
+                                <h5>Diagnóstico</h5>
+                                <p>Bronquiolite viral.</p>
+                            </div>
+                            <div class="record-section">
+                                <h5>Conduta</h5>
+                                <p>Hidratação oral, sintomáticos para febre. Orientado retorno se piora do estado geral.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Novo Registro</h3>
+                </div>
+                
+                <form class="new-record-form" id="newRecordForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="record-patient">Paciente</label>
+                            <select id="record-patient" required>
+                                <option value="">Selecione o paciente</option>
+                                <option value="1001">João Silva</option>
+                                <option value="1002">Maria Oliveira</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="record-doctor">Médico</label>
+                            <select id="record-doctor" required>
+                                <option value="">Selecione o médico</option>
+                                <option value="1">Dra. Ana Souza</option>
+                                <option value="2">Dr. Carlos Mendes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="record-date">Data do Atendimento</label>
+                        <input type="date" id="record-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="record-anamnesis">Anamnese</label>
+                        <textarea id="record-anamnesis" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="record-exam">Exame Físico</label>
+                        <textarea id="record-exam" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="record-diagnosis">Diagnóstico</label>
+                        <textarea id="record-diagnosis" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="record-conduct">Conduta</label>
+                        <textarea id="record-conduct" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Prontuário</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const filterPatient = document.getElementById('filterPatient');
+            const filterDoctor = document.getElementById('filterDoctor');
+            const recordsContainer = document.getElementById('recordsContainer');
+            const newRecordForm = document.getElementById('newRecordForm');
+            
+            // Função de filtragem
+            function filterRecords() {
+                const searchValue = searchInput.value.toLowerCase();
+                const patientValue = filterPatient.value;
+                const doctorValue = filterDoctor.value;
+                const records = document.querySelectorAll('.record');
+                
+                records.forEach(record => {
+                    const content = record.innerText.toLowerCase();
+                    const recordPatient = record.getAttribute('data-patient');
+                    const recordDoctor = record.getAttribute('data-doctor');
+                    
+                    const matchesSearch = content.includes(searchValue);
+                    const matchesPatient = patientValue === '' || recordPatient === patientValue;
+                    const matchesDoctor = doctorValue === '' || recordDoctor === doctorValue;
+                    
+                    if (matchesSearch && matchesPatient && matchesDoctor) {
+                        record.style.display = '';
+                    } else {
+                        record.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Event listeners para filtros
+            searchButton.addEventListener('click', filterRecords);
+            searchInput.addEventListener('input', filterRecords);
+            filterPatient.addEventListener('change', filterRecords);
+            filterDoctor.addEventListener('change', filterRecords);
+            
+            // Manipular envio do formulário
+            newRecordForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Obter valores
+                const patientId = document.getElementById('record-patient').value;
+                const patientName = document.getElementById('record-patient').options[document.getElementById('record-patient').selectedIndex].text;
+                const doctorId = document.getElementById('record-doctor').value;
+                const doctorName = document.getElementById('record-doctor').options[document.getElementById('record-doctor').selectedIndex].text;
+                const date = document.getElementById('record-date').value;
+                const anamnesis = document.getElementById('record-anamnesis').value;
+                const exam = document.getElementById('record-exam').value;
+                const diagnosis = document.getElementById('record-diagnosis').value;
+                const conduct = document.getElementById('record-conduct').value;
+                
+                // Formatar data
+                const dateObj = new Date(date);
+                const formattedDate = dateObj.toLocaleDateString('pt-BR');
+                
+                // Criar novo elemento de registro
+                const newRecord = document.createElement('div');
+                newRecord.className = 'record';
+                newRecord.setAttribute('data-patient', patientId);
+                newRecord.setAttribute('data-doctor', doctorId);
+                
+                newRecord.innerHTML = `
+                    <div class="record-header">
+                        <h4>Consulta em ${formattedDate} - ${patientName}</h4>
+                        <span class="doctor">${doctorName}</span>
+                    </div>
+                    <div class="record-content">
+                        <div class="record-section">
+                            <h5>Anamnese</h5>
+                            <p>${anamnesis}</p>
+                        </div>
+                        <div class="record-section">
+                            <h5>Exame Físico</h5>
+                            <p>${exam}</p>
+                        </div>
+                        <div class="record-section">
+                            <h5>Diagnóstico</h5>
+                            <p>${diagnosis}</p>
+                        </div>
+                        <div class="record-section">
+                            <h5>Conduta</h5>
+                            <p>${conduct}</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Adicionar ao topo da lista
+                recordsContainer.insertBefore(newRecord, recordsContainer.firstChild);
+                
+                // Limpar formulário e mostrar notificação
+                newRecordForm.reset();
+                showNotification('Prontuário salvo com sucesso!', 'success');
+                
+                // Rolar para o topo da lista
+                recordsContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

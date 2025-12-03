@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário - Clínica Médica</title>
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CherryHP</h2>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div onclick="window.location.href = '../dashboard/index.html'" class="menu-item" data-page="dashboard">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div onclick="window.location.href = '../dashboard/pacientes.html'" class="menu-item" data-page="pacientes">
+                    <span>👨‍👩‍👧‍👦</span> Pacientes
+                </div>
+                <div onclick="window.location.href = '../dashboard/consultas.html'" class="menu-item" data-page="consultas">
+                    <span>📅</span> Consultas
+                </div>
+                <div onclick="window.location.href = '../dashboard/medicos.html'" class="menu-item" data-page="medicos">
+                    <span>👨‍⚕️</span> Médicos
+                </div>
+                <div onclick="window.location.href = '../dashboard/prontuarios.html'" class="menu-item" data-page="prontuarios">
+                    <span>📋</span> Prontuários
+                </div>
+                <div onclick="window.location.href = '../dashboard/financeiro.html'" class="menu-item" data-page="financeiro">
+                    <span>💰</span> Financeiro
+                </div>
+                <div onclick="window.location.href = '../dashboard/configuracoes.html'" class="menu-item active" data-page="configuracoes">
+                    <span>⚙️</span> Configurações
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Cadastro de Usuário</h1>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                    <button class="logout-btn">Sair</button>
+                </div>
+            </div>
+            
+            <div class="page-title">
+                <h2>Criar Novo Usuário do Sistema</h2>
+                <button onclick="window.location.href = '../dashboard/configuracoes.html'" class="btn btn-danger">Voltar</button>
+            </div>
+            
+            <div class="form-container">
+                <form id="usuario-form" class="register-form">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados do Usuário</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="usuario-nome">Nome Completo</label>
+                                <input type="text" id="usuario-nome" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="usuario-cpf">CPF</label>
+                                <input type="text" id="usuario-cpf" placeholder="000.000.000-00" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="usuario-email">E-mail</label>
+                                <input type="email" id="usuario-email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="usuario-telefone">Telefone</label>
+                                <input type="tel" id="usuario-telefone" placeholder="(00) 00000-0000" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados de Acesso</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="usuario-login">Nome de Usuário</label>
+                                <input type="text" id="usuario-login" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="usuario-perfil">Perfil de Acesso</label>
+                                <select id="usuario-perfil" required>
+                                    <option value="">Selecione</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="medico">Médico</option>
+                                    <option value="recepcionista">Recepcionista</option>
+                                    <option value="enfermeiro">Enfermeiro</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="usuario-senha">Senha</label>
+                                <input type="password" id="usuario-senha" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="usuario-confirma-senha">Confirmar Senha</label>
+                                <input type="password" id="usuario-confirma-senha" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Permissões</h3>
+                        </div>
+                        
+                        <div class="permissions-grid">
+                            <div class="permission-item">
+                                <input type="checkbox" id="perm-pacientes" checked>
+                                <label for="perm-pacientes">Gerenciar Pacientes</label>
+                            </div>
+                            
+                            <div class="permission-item">
+                                <input type="checkbox" id="perm-consultas" checked>
+                                <label for="perm-consultas">Agendar Consultas</label>
+                            </div>
+                            
+                            <div class="permission-item">
+                                <input type="checkbox" id="perm-prontuarios">
+                                <label for="perm-prontuarios">Acessar Prontuários</label>
+                            </div>
+                            
+                            <div class="permission-item">
+                                <input type="checkbox" id="perm-financeiro">
+                                <label for="perm-financeiro">Acessar Financeiro</label>
+                            </div>
+                            
+                            <div class="permission-item">
+                                <input type="checkbox" id="perm-config">
+                                <label for="perm-config">Configurações do Sistema</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-danger">Limpar</button>
+                        <button type="submit" class="btn btn-primary">Criar Usuário</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+    <script>
+        document.getElementById('usuario-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation(); // Prevent the default script.js handler if possible, or just let it run and overwrite behavior
+            
+            const nome = document.getElementById('usuario-nome').value;
+            const cpf = document.getElementById('usuario-cpf').value;
+            const email = document.getElementById('usuario-email').value;
+            const telefone = document.getElementById('usuario-telefone').value;
+            const login = document.getElementById('usuario-login').value;
+            const perfil = document.getElementById('usuario-perfil').options[document.getElementById('usuario-perfil').selectedIndex].text;
+            
+            const newUser = {
+                nome: nome,
+                cpf: cpf,
+                email: email,
+                telefone: telefone,
+                login: login,
+                perfil: perfil,
+                ultimoAcesso: '-',
+                status: 'Ativo'
+            };
+            
+            const usuarios = JSON.parse(localStorage.getItem('cherry_usuarios')) || [];
+            usuarios.push(newUser);
+            localStorage.setItem('cherry_usuarios', JSON.stringify(usuarios));
+            
+            alert('Usuário cadastrado com sucesso!');
+            window.location.href = '../dashboard/configuracoes.html';
+        });
+    </script>
+</body>
+</html>

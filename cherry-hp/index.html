@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Médica - Login</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        /* Estilos adicionais para melhorias */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 350px;
+        }
+        
+        .notification.success {
+            background-color: #2ecc71;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.error {
+            background-color: #e74c3c;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification.info {
+            background-color: #3498db;
+        }
+    
+        .notification.warning {
+            background-color: #f39c12;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <div class="login-container">
+        <div class="login-header">
+            <img src="https://via.placeholder.com/100" alt="Logo da Clínica" id="clinicaLogo">
+            <h1>CherryHP</h1>
+            <p>Sistema de Gestão Médica</p>
+        </div>
+        
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" placeholder="Digite seu usuário" required autocomplete="username">
+                <div class="form-error" id="usernameError"></div>
+            </div>
+            
+            <div class="form-group password-container">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Digite sua senha" required autocomplete="current-password">
+                <span class="password-toggle" id="passwordToggle">👁️</span>
+                <div class="form-error" id="passwordError"></div>
+            </div>
+            
+            <div class="form-options">
+                <label>
+                    <input type="checkbox" id="rememberMe"> Lembrar-me
+                </label>
+                <a href="#" class="forgot-password" id="forgotPassword">Esqueci minha senha</a>
+            </div>
+            
+            <button type="submit" class="login-button" id="loginButton">
+                <span id="buttonText">Entrar</span>
+            </button>
+        </form>
+        
+        <div class="login-footer">
+            <p>Versão 2.0.0 - © 2023 CherryHP</p>
+            <p>Suporte: suporte@cherryhp.com.br | Tel: (11) 3333-4444</p>
+        </div>
+    </div>
+    
+    <script>
+        let loginAttempts = 0;
+        const MAX_LOGIN_ATTEMPTS = 3;
+        let loginBlocked = false;
+        let blockTimeout = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos DOM
+            const loginForm = document.getElementById('login-form');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const rememberMe = document.getElementById('rememberMe');
+            const forgotPassword = document.getElementById('forgotPassword');
+            const loginButton = document.getElementById('loginButton');
+            const buttonText = document.getElementById('buttonText');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const notification = document.getElementById('notification');
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            
+            // Verificar se há credenciais salvas
+            const savedUsername = localStorage.getItem('cherryhp_username');
+            const savedRememberMe = localStorage.getItem('cherryhp_remember') === 'true';
+            
+            if (savedUsername && savedRememberMe) {
+                usernameInput.value = savedUsername;
+                rememberMe.checked = true;
+            }
+            
+            // Alternar visibilidade da senha
+            passwordToggle.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    passwordToggle.textContent = '🔒';
+                } else {
+                    passwordInput.type = 'password';
+                    passwordToggle.textContent = '👁️';
+                }
+            });
+            
+            // Validação em tempo real
+            usernameInput.addEventListener('input', function() {
+                if (usernameInput.value.length < 3) {
+                    usernameError.textContent = 'Usuário deve ter pelo menos 3 caracteres';
+                    usernameError.style.display = 'block';
+                } else {
+                    usernameError.style.display = 'none';
+                }
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                if (passwordInput.value.length < 6) {
+                    passwordError.textContent = 'Senha deve ter pelo menos 6 caracteres';
+                    passwordError.style.display = 'block';
+                } else {
+                    passwordError.style.display = 'none';
+                }
+            });
+            
+            // Esqueci minha senha
+            forgotPassword.addEventListener('click', function(e) {
+                console.log('ento');
+                
+                e.preventDefault();
+                showNotification('Funcionalidade de recuperação de senha seria acionada. Um email seria enviado para redefinir a senha.', 'info');
+            });
+            
+            // Submissão do formulário
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (checkLoginBlock()) {
+                    return;
+                }
+                
+                // Validar campos
+                let isValid = true;
+                
+                if (usernameInput.value.length < 3) {
+                    usernameError.textContent = 'Usuário deve ter pelo menos 3 caracteres';
+                    usernameError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (passwordInput.value.length < 6) {
+                    passwordError.textContent = 'Senha deve ter pelo menos 6 caracteres';
+                    passwordError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    showNotification('Por favor, corrija os erros no formulário.', 'error');
+                    return;
+                }
+                
+                // Simular processo de login
+                simulateLogin();
+            });
+            
+            // Função para simular login
+            function simulateLogin() {
+                // Verificar se o login está bloqueado
+                if (checkLoginBlock()) {
+                    return;
+                }
+                
+                // Mostrar loading
+                showLoading(true);
+                
+                // Simular delay de rede
+                setTimeout(function() {
+                    // Credenciais de exemplo
+                    const validUsername = 'admin';
+                    const validPassword = 'admin123';
+                    
+                    if (usernameInput.value === validUsername && passwordInput.value === validPassword) {
+                        // Login bem-sucedido - resetar tentativas
+                        loginAttempts = 0;
+                        localStorage.removeItem('cherryhp_attempts');
+                        localStorage.removeItem('cherryhp_blocktime');
+                        
+                        // Salvar preferência de "Lembrar-me"
+                        if (rememberMe.checked) {
+                            localStorage.setItem('cherryhp_username', usernameInput.value);
+                            localStorage.setItem('cherryhp_remember', 'true');
+                        } else {
+                            localStorage.removeItem('cherryhp_username');
+                            localStorage.removeItem('cherryhp_remember');
+                        }
+                        
+                        // Login bem-sucedido
+                        showNotification('Login realizado com sucesso! Redirecionando...', 'success');
+                        
+                        // Redirecionar após breve delay
+                        setTimeout(function() {
+                            window.location.href = 'dashboard/index.html';
+                        }, 1500);
+                    } else {
+                        // Login falhou - incrementar tentativas
+                        loginAttempts++;
+                        localStorage.setItem('cherryhp_attempts', loginAttempts);
+                        
+                        // Verificar se excedeu o limite de tentativas
+                        if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                            const blockTime = Date.now() + (5 * 60 * 1000); // 5 minutos
+                            localStorage.setItem('cherryhp_blocktime', blockTime);
+                            loginBlocked = true;
+                            updateLoginFormBlocked(300); // 300 segundos = 5 minutos
+                            showNotification('Muitas tentativas falhas. Login bloqueado por 5 minutos.', 'error');
+                        } else {
+                            const attemptsLeft = MAX_LOGIN_ATTEMPTS - loginAttempts;
+                            showNotification(`Usuário ou senha incorretos. ${attemptsLeft} tentativa(s) restante(s).`, 'error');
+                        }
+                        
+                        showLoading(false);
+                    }
+                }, 1500);
+            }
+            
+            // Função para mostrar/ocultar loading
+            function showLoading(show) {
+                if (show) {
+                    loadingOverlay.style.display = 'flex';
+                    loginButton.disabled = true;
+                    buttonText.textContent = 'Entrando...';
+                } else {
+                    loadingOverlay.style.display = 'none';
+                    loginButton.disabled = false;
+                    buttonText.textContent = 'Entrar';
+                }
+            }
+
+            // Função para verificar se o login está bloqueado
+            function checkLoginBlock() {
+                const now = Date.now();
+                const blockTime = localStorage.getItem('cherryhp_blocktime');
+                
+                if (blockTime && now < parseInt(blockTime)) {
+                    loginBlocked = true;
+                    const timeLeft = Math.ceil((parseInt(blockTime) - now) / 1000);
+                    updateLoginFormBlocked(timeLeft);
+                    return true;
+                } else if (blockTime && now >= parseInt(blockTime)) {
+                    // Tempo de bloqueio expirado
+                    localStorage.removeItem('cherryhp_blocktime');
+                    localStorage.removeItem('cherryhp_attempts');
+                    loginBlocked = false;
+                    loginAttempts = 0;
+                }
+                
+                return false;
+            }
+
+            // Função para atualizar o formulário quando bloqueado
+            function updateLoginFormBlocked(seconds) {
+                usernameInput.disabled = true;
+                passwordInput.disabled = true;
+                loginButton.disabled = true;
+                buttonText.textContent = `Tente novamente em ${seconds}s`;
+                
+                if (seconds > 0) {
+                    setTimeout(() => {
+                        updateLoginFormBlocked(seconds - 1);
+                    }, 1000);
+                } else {
+                    usernameInput.disabled = false;
+                    passwordInput.disabled = false;
+                    loginButton.disabled = false;
+                    buttonText.textContent = 'Entrar';
+                    loginBlocked = false;
+                    loginAttempts = 0;
+                }
+            }
+            
+            // Função para mostrar notificações
+            function showNotification(message, type) {
+                notification.textContent = message;
+                notification.className = 'notification';
+                notification.classList.add(type);
+                
+                // Garantir que a notificação esteja visível
+                notification.style.opacity = 1;
+                notification.style.transform = 'translateY(0)';
+                
+                // Configurar para esconder após 5 segundos
+                setTimeout(function() {
+                    notification.style.opacity = 0;
+                    notification.style.transform = 'translateY(-20px)';
+                }, 5000);
+            }
+            
+            // Verificar se há parâmetros de URL (para redirecionamentos de outras páginas)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('sessionExpired')) {
+                showNotification('Sessão expirada. Por favor, faça login novamente.', 'error');
+            }
+            
+            if (urlParams.has('loggedOut')) {
+                showNotification('Logout realizado com sucesso.', 'success');
+            }
+        });
+    </script>
+</body>
+</html>

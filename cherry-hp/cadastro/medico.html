@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Médico - Clínica Médica</title>
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CherryHP</h2>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div onclick="window.location.href = '../dashboard/index.html'" class="menu-item" data-page="dashboard">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div onclick="window.location.href = '../dashboard/pacientes.html'" class="menu-item" data-page="pacientes">
+                    <span>👨‍👩‍👧‍👦</span> Pacientes
+                </div>
+                <div onclick="window.location.href = '../dashboard/consultas.html'" class="menu-item" data-page="consultas">
+                    <span>📅</span> Consultas
+                </div>
+                <div onclick="window.location.href = '../dashboard/medicos.html'" class="menu-item active" data-page="medicos">
+                    <span>👨‍⚕️</span> Médicos
+                </div>
+                <div onclick="window.location.href = '../dashboard/prontuarios.html'" class="menu-item" data-page="prontuarios">
+                    <span>📋</span> Prontuários
+                </div>
+                <div onclick="window.location.href = '../dashboard/financeiro.html'" class="menu-item" data-page="financeiro">
+                    <span>💰</span> Financeiro
+                </div>
+                <div onclick="window.location.href = '../dashboard/configuracoes.html'" class="menu-item" data-page="configuracoes">
+                    <span>⚙️</span> Configurações
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Cadastro de Médico</h1>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                    <button class="logout-btn">Sair</button>
+                </div>
+            </div>
+            
+            <div class="page-title">
+                <h2>Preencha os dados do médico</h2>
+                <button onclick="window.location.href = '../dashboard/medicos.html'" class="btn btn-danger">Cancelar</button>
+            </div>
+            
+            <div class="form-container">
+                <form id="medico-form" class="register-form">
+                    <input type="hidden" id="medico-id">
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados Pessoais</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medico-nome">Nome Completo</label>
+                                <input type="text" id="medico-nome" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="medico-crm">CRM</label>
+                                <input type="text" id="medico-crm" placeholder="UF-000000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medico-cpf">CPF</label>
+                                <input type="text" id="medico-cpf" placeholder="000.000.000-00" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="medico-rg">RG</label>
+                                <input type="text" id="medico-rg" placeholder="00.000.000-0">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medico-nascimento">Data de Nascimento</label>
+                                <input type="date" id="medico-nascimento" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="medico-sexo">Sexo</label>
+                                <select id="medico-sexo" required>
+                                    <option value="">Selecione</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                    <option value="O">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados Profissionais</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medico-especialidade">Especialidade Principal</label>
+                                <select id="medico-especialidade" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Cardiologia">Cardiologia</option>
+                                    <option value="Pediatria">Pediatria</option>
+                                    <option value="Ortopedia">Ortopedia</option>
+                                    <option value="Dermatologia">Dermatologia</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="medico-subespecialidade">Subespecialidade</label>
+                                <input type="text" id="medico-subespecialidade">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Contato</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medico-telefone">Telefone</label>
+                                <input type="tel" id="medico-telefone" placeholder="(00) 00000-0000" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="medico-email">E-mail</label>
+                                <input type="email" id="medico-email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medico-endereco">Endereço</label>
+                            <input type="text" id="medico-endereco">
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados de Acesso</h3>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="medico-usuario">Nome de Usuário</label>
+                                <input type="text" id="medico-usuario" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="medico-senha">Senha</label>
+                                <input type="password" id="medico-senha">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medico-confirma-senha">Confirmar Senha</label>
+                            <input type="password" id="medico-confirma-senha">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-danger">Limpar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Médico</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const medicoId = urlParams.get('id');
+            const isEdit = urlParams.get('edit');
+            
+            console.log('URL params:', { medicoId, isEdit });
+            
+            if (medicoId && isEdit === 'true') {
+                enableEditMode(medicoId);
+            }
+            
+            function enableEditMode(id) {
+                console.log('Modo de edição ativado para ID:', id);
+                
+                document.querySelector('.header h1').innerText = 'Editar Médico';
+                document.querySelector('.page-title h2').innerText = 'Editando dados do médico';
+                document.querySelector('.form-actions button[type="submit"]').innerText = 'Salvar Alterações';
+                
+                const medicos = JSON.parse(localStorage.getItem('cherry_medicos')) || [];
+                console.log('Total de médicos no localStorage:', medicos.length);
+                console.log('Médicos:', medicos);
+                console.log('Procurando médico com ID:', id, 'tipo:', typeof id);
+                
+                // Tentar encontrar por ID como string ou número
+                const medico = medicos.find(m => {
+                    console.log('Comparando:', m.id, 'tipo:', typeof m.id, 'com', id);
+                    return m.id == id || m.id === id || m.id === parseInt(id) || m.id.toString() === id;
+                });
+                
+                console.log('Médico encontrado:', medico);
+                
+                if (medico) {
+                    document.getElementById('medico-id').value = medico.id;
+                    document.getElementById('medico-nome').value = medico.nome || '';
+                    document.getElementById('medico-crm').value = medico.crm || '';
+                    document.getElementById('medico-cpf').value = medico.cpf || '';
+                    document.getElementById('medico-rg').value = medico.rg || '';
+                    document.getElementById('medico-nascimento').value = medico.nascimento || '';
+                    document.getElementById('medico-sexo').value = medico.sexo || '';
+                    document.getElementById('medico-especialidade').value = medico.especialidade || '';
+                    document.getElementById('medico-subespecialidade').value = medico.subespecialidade || '';
+                    document.getElementById('medico-telefone').value = medico.telefone || '';
+                    document.getElementById('medico-email').value = medico.email || '';
+                    document.getElementById('medico-endereco').value = medico.endereco || '';
+                    document.getElementById('medico-usuario').value = medico.usuario || '';
+                    
+                    document.getElementById('medico-crm').readOnly = true;
+                    document.getElementById('medico-senha').required = false;
+                    document.getElementById('medico-confirma-senha').required = false;
+                }
+            }
+            
+            // Carregar especialidades do localStorage
+            function loadSpecialties() {
+                const SPECIALTIES_KEY = 'cherry_specialties';
+                const defaultSpecialties = ['Cardiologia', 'Pediatria', 'Ortopedia', 'Dermatologia', 'Ginecologia', 'Neurologia'];
+                
+                let specialties = JSON.parse(localStorage.getItem(SPECIALTIES_KEY));
+                if (!specialties) {
+                    specialties = defaultSpecialties;
+                    localStorage.setItem(SPECIALTIES_KEY, JSON.stringify(specialties));
+                }
+                
+                const select = document.getElementById('medico-especialidade');
+                const currentValue = select.value; // Preserva valor se já selecionado (edição)
+                
+                select.innerHTML = '<option value="">Selecione</option>';
+                
+                specialties.forEach(spec => {
+                    const option = document.createElement('option');
+                    option.value = spec;
+                    option.textContent = spec;
+                    select.appendChild(option);
+                });
+                
+                if (currentValue) {
+                    select.value = currentValue;
+                }
+            }
+
+            loadSpecialties();
+
+            document.getElementById('medico-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const senha = document.getElementById('medico-senha').value;
+                const confirmaSenha = document.getElementById('medico-confirma-senha').value;
+                const medicoId = document.getElementById('medico-id').value;
+                
+                if (senha && senha !== confirmaSenha) {
+                    alert('As senhas não coincidem!');
+                    return;
+                }
+                
+                const medicoData = {
+                    id: medicoId || Date.now().toString(),
+                    crm: document.getElementById('medico-crm').value,
+                    nome: document.getElementById('medico-nome').value,
+                    cpf: document.getElementById('medico-cpf').value,
+                    rg: document.getElementById('medico-rg').value,
+                    nascimento: document.getElementById('medico-nascimento').value,
+                    sexo: document.getElementById('medico-sexo').value,
+                    especialidade: document.getElementById('medico-especialidade').value,
+                    subespecialidade: document.getElementById('medico-subespecialidade').value,
+                    telefone: document.getElementById('medico-telefone').value,
+                    email: document.getElementById('medico-email').value,
+                    endereco: document.getElementById('medico-endereco').value,
+                    usuario: document.getElementById('medico-usuario').value,
+                    status: 'Ativo'
+                };
+                
+                let medicos = JSON.parse(localStorage.getItem('cherry_medicos')) || [];
+                const medicoIndex = medicos.findIndex(m => m.id === medicoData.id);
+                
+                if (medicoIndex !== -1) {
+                    medicoData.status = medicos[medicoIndex].status;
+                    medicos[medicoIndex] = medicoData;
+                    alert('Dados do médico atualizados com sucesso!');
+                } else {
+                    medicos.push(medicoData);
+                    alert('Médico cadastrado com sucesso!');
+                }
+                
+                localStorage.setItem('cherry_medicos', JSON.stringify(medicos));
+                window.location.href = '../dashboard/medicos.html';
+            });
+        });
+    </script>
+</body>
+</html>

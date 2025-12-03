@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Clínica Médica</title>
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CherryHP</h2>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div onclick="window.location.href = 'index.html'" class="menu-item" data-page="dashboard">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div onclick="window.location.href = 'pacientes.html'" class="menu-item" data-page="pacientes">
+                    <span>👨‍👩‍👧‍👦</span> Pacientes
+                </div>
+                <div onclick="window.location.href = 'consultas.html'" class="menu-item" data-page="consultas">
+                    <span>📅</span> Consultas
+                </div>
+                <div onclick="window.location.href = 'medicos.html'" class="menu-item" data-page="medicos">
+                    <span>👨‍⚕️</span> Médicos
+                </div>
+                <div onclick="window.location.href = 'prontuarios.html'" class="menu-item" data-page="prontuarios">
+                    <span>📋</span> Prontuários
+                </div>
+                <div onclick="window.location.href = 'financeiro.html'" class="menu-item" data-page="financeiro">
+                    <span>💰</span> Financeiro
+                </div>
+                <div onclick="window.location.href = 'configuracoes.html'" class="menu-item active" data-page="configuracoes">
+                    <span>⚙️</span> Configurações
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Configurações do Sistema</h1>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                    <button class="logout-btn">Sair</button>
+                </div>
+            </div>
+            
+            <div class="page-title">
+                <h2>Configurações Gerais da Clínica</h2>
+            </div>
+            
+            <div class="settings-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="clinica">Dados da Clínica</button>
+                    <button class="tab-btn" data-tab="horarios">Horários</button>
+                    <button class="tab-btn" data-tab="usuarios">Usuários</button>
+                    <button class="tab-btn" data-tab="backup">Backup</button>
+                    <button class="tab-btn" data-tab="integracao">Integrações</button>
+                </div>
+                
+                <div class="tab-content active" id="clinica-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Informações da Clínica</h3>
+                        </div>
+                        
+                        <form id="clinica-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="clinica-nome">Nome da Clínica</label>
+                                    <input type="text" id="clinica-nome" value="CherryHP" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="clinica-cnpj">CNPJ</label>
+                                    <input type="text" id="clinica-cnpj" value="12.345.678/0001-90" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clinica-endereco">Endereço</label>
+                                <input type="text" id="clinica-endereco" value="Av. Principal, 1234 - Centro">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="clinica-telefone">Telefone</label>
+                                    <input type="tel" id="clinica-telefone" value="(11) 3333-4444" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="clinica-email">E-mail</label>
+                                    <input type="email" id="clinica-email" value="contato@cherryhp.com.br" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clinica-logo">Logo</label>
+                                <input type="file" id="clinica-logo">
+                                <small>Formatos aceitos: JPG, PNG (máx. 2MB)</small>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="horarios-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Horário de Funcionamento</h3>
+                        </div>
+                        
+                        <form id="horarios-form">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Dia</th>
+                                        <th>Abre</th>
+                                        <th>Fecha</th>
+                                        <th>Intervalo</th>
+                                        <th>Atendimento</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="horarios-table-body">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                            
+                            <div class="form-actions">
+                                <button type="reset" class="btn btn-danger">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar Horários</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Feriados e Exceções</h3>
+                            <button id="btn-add-feriado" class="btn btn-primary">Adicionar Feriado</button>
+                        </div>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Recorrência</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feriados-table-body">
+                                <!-- Preenchido via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Modal de Feriado -->
+                <div id="feriado-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+                    <div class="modal-content" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 400px; border-radius: 8px;">
+                        <h3 id="modal-title">Adicionar Feriado</h3>
+                        <form id="feriado-form">
+                            <input type="hidden" id="feriado-index">
+                            <div class="form-group">
+                                <label for="feriado-data">Data</label>
+                                <input type="date" id="feriado-data" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="feriado-descricao">Descrição</label>
+                                <input type="text" id="feriado-descricao" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="feriado-recorrencia">Recorrência</label>
+                                <select id="feriado-recorrencia" style="width: 100%; padding: 8px; margin-bottom: 20px;">
+                                    <option value="Nenhuma">Nenhuma</option>
+                                    <option value="Anual">Anual</option>
+                                </select>
+                            </div>
+                            <div style="text-align: right;">
+                                <button type="button" id="btn-cancel-feriado" class="btn btn-danger">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="usuarios-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Usuários do Sistema</h3>
+                            <button onclick="window.location.href = '../cadastro/usuario.html'" class="btn btn-primary">Novo Usuário</button>
+                        </div>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Usuário</th>
+                                    <th>Perfil</th>
+                                    <th>Último Acesso</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Administrador</td>
+                                    <td>admin</td>
+                                    <td>Administrador</td>
+                                    <td>15/05/2023 09:45</td>
+                                    <td><span class="status-badge active">Ativo</span></td>
+                                    <td>
+                                        <button class="btn btn-primary">Editar</button>
+                                        <button class="btn btn-danger">Desativar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <!-- Modal de Edição de Usuário -->
+                <div id="usuario-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+                    <div class="modal-content" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 400px; border-radius: 8px;">
+                        <h3 id="usuario-modal-title">Editar Usuário</h3>
+                        <form id="usuario-edit-form">
+                            <input type="hidden" id="usuario-index">
+                            <div class="form-group">
+                                <label for="edit-usuario-nome">Nome</label>
+                                <input type="text" id="edit-usuario-nome" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-usuario-cpf">CPF</label>
+                                <input type="text" id="edit-usuario-cpf" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-usuario-email">E-mail</label>
+                                <input type="email" id="edit-usuario-email" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-usuario-telefone">Telefone</label>
+                                <input type="tel" id="edit-usuario-telefone" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-usuario-login">Login</label>
+                                <input type="text" id="edit-usuario-login" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-usuario-perfil">Perfil</label>
+                                <select id="edit-usuario-perfil" required style="width: 100%; padding: 8px; margin-bottom: 20px;">
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Médico">Médico</option>
+                                    <option value="Recepcionista">Recepcionista</option>
+                                    <option value="Enfermeiro">Enfermeiro</option>
+                                </select>
+                            </div>
+                            <div style="text-align: right;">
+                                <button type="button" id="btn-cancel-usuario" class="btn btn-danger">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="tab-content" id="backup-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Backup do Sistema</h3>
+                        </div>
+                        
+                        <div class="backup-options">
+                            <div class="backup-card">
+                                <h4>Gerar Backup</h4>
+                                <p>Crie uma cópia de segurança completa do sistema</p>
+                                <button class="btn btn-primary">Gerar Backup Agora</button>
+                            </div>
+                            
+                            <div class="backup-card">
+                                <h4>Restaurar Backup</h4>
+                                <p>Recupere o sistema a partir de um backup anterior</p>
+                                <input type="file" id="backup-file">
+                                <button class="btn btn-primary">Restaurar</button>
+                            </div>
+                            
+                            <div class="backup-card">
+                                <h4>Backups Automáticos</h4>
+                                <p>Configure backups automáticos periódicos</p>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" checked> Ativar backups automáticos
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Frequência</label>
+                                    <select>
+                                        <option>Diariamente</option>
+                                        <option>Semanalmente</option>
+                                        <option>Mensalmente</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary">Salvar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Histórico de Backups</h3>
+                            </div>
+                            
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Tamanho</th>
+                                        <th>Tipo</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>14/05/2023 02:00</td>
+                                        <td>245 MB</td>
+                                        <td>Automático</td>
+                                        <td><span class="status-badge confirmed">Concluído</span></td>
+                                        <td>
+                                            <button class="btn btn-primary">Download</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="integracao-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Integrações com Terceros</h3>
+                        </div>
+                        
+                        <div class="integrations-grid">
+                            <div class="integration-card">
+                                <div class="integration-header">
+                                    <img src="https://via.placeholder.com/40" alt="Logo TISS">
+                                    <h4>TISS - Troca de Informação em Saúde Suplementar</h4>
+                                </div>
+                                <p>Padrão para comunicação com operadoras de saúde</p>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox"> Ativar integração
+                                    </label>
+                                </div>
+                                <button class="btn">Configurar</button>
+                            </div>
+                            
+                            <div class="integration-card">
+                                <div class="integration-header">
+                                    <img src="https://via.placeholder.com/40" alt="Logo Certificado Digital">
+                                    <h4>Certificado Digital</h4>
+                                </div>
+                                <p>Assinatura digital de documentos e NF-e</p>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" checked> Ativar integração
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Certificado</label>
+                                    <input type="file">
+                                </div>
+                                <button class="btn">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script.js"></script>
+    <script src="configuracoes.js"></script>
+    <script>
+        // Controle das abas
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active de todos os botões e conteúdos
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Adiciona active ao botão clicado e ao conteúdo correspondente
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // Simular geração de backup
+        document.querySelector('.backup-card .btn-primary').addEventListener('click', function() {
+            alert('Backup gerado com sucesso (simulado)');
+        });
+    </script>
+</body>
+</html>

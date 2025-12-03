@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médicos - Clínica Médica</title>
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>CherryHP</h2>
+            </div>
+            
+           <div class="sidebar-menu">
+                <div onclick="window.location.href = 'index.html'" class="menu-item" data-page="dashboard">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div onclick="window.location.href = 'pacientes.html'" class="menu-item" data-page="pacientes">
+                    <span>👨‍👩‍👧‍👦</span> Pacientes
+                </div>
+                <div onclick="window.location.href = 'consultas.html'" class="menu-item" data-page="consultas">
+                    <span>📅</span> Consultas
+                </div>
+                <div onclick="window.location.href = 'medicos.html'" class="menu-item active" data-page="medicos">
+                    <span>👨‍⚕️</span> Médicos
+                </div>
+                <div onclick="window.location.href = 'prontuarios.html'" class="menu-item" data-page="prontuarios">
+                    <span>📋</span> Prontuários
+                </div>
+                <div onclick="window.location.href = 'financeiro.html'" class="menu-item" data-page="financeiro">
+                    <span>💰</span> Financeiro
+                </div>
+                <div onclick="window.location.href = 'configuracoes.html'" class="menu-item" data-page="configuracoes">
+                    <span>⚙️</span> Configurações
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Gerenciamento de Médicos</h1>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                    <button class="logout-btn">Sair</button>
+                </div>
+            </div>
+            
+            <div class="page-title">
+                <h2>Cadastro de Médicos</h2>
+                <button onclick="window.location.href = '../cadastro/medico.html'" class="btn btn-primary">Novo Médico</button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Médicos Cadastrados</h3>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Buscar médico...">
+                        <button class="btn" id="searchButton">Buscar</button>
+                    </div>
+                </div>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>CRM</th>
+                            <th>Nome</th>
+                            <th>Especialidade</th>
+                            <th>Telefone</th>
+                            <th>E-mail</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Cardiologia (5 médicos) -->
+                        <tr class="doctor-row" data-crm="SP-123456" data-name="Dra. Ana Souza" data-specialty="Cardiologia" data-status="Ativo">
+                            <td>SP-123456</td>
+                            <td>Dra. Ana Souza</td>
+                            <td>Cardiologia</td>
+                            <td>(11) 9999-8888</td>
+                            <td>ana.souza@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-111222" data-name="Dr. Roberto Firmino" data-specialty="Cardiologia" data-status="Ativo">
+                            <td>SP-111222</td>
+                            <td>Dr. Roberto Firmino</td>
+                            <td>Cardiologia</td>
+                            <td>(11) 9777-6666</td>
+                            <td>roberto.firmino@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-333444" data-name="Dra. Carla Diaz" data-specialty="Cardiologia" data-status="Férias">
+                            <td>SP-333444</td>
+                            <td>Dra. Carla Diaz</td>
+                            <td>Cardiologia</td>
+                            <td>(11) 9555-4444</td>
+                            <td>carla.diaz@clinica.com</td>
+                            <td><span class="status-badge warning">Férias</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-555666" data-name="Dr. Lucas Silva" data-specialty="Cardiologia" data-status="Ativo">
+                            <td>SP-555666</td>
+                            <td>Dr. Lucas Silva</td>
+                            <td>Cardiologia</td>
+                            <td>(11) 9333-2222</td>
+                            <td>lucas.silva@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-777888" data-name="Dra. Marina Ruy" data-specialty="Cardiologia" data-status="Ativo">
+                            <td>SP-777888</td>
+                            <td>Dra. Marina Ruy</td>
+                            <td>Cardiologia</td>
+                            <td>(11) 9111-0000</td>
+                            <td>marina.ruy@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+
+                        <!-- Pediatria (3 médicos) -->
+                        <tr class="doctor-row" data-crm="SP-654321" data-name="Dr. Carlos Mendes" data-specialty="Pediatria" data-status="Ativo">
+                            <td>SP-654321</td>
+                            <td>Dr. Carlos Mendes</td>
+                            <td>Pediatria</td>
+                            <td>(11) 9888-7777</td>
+                            <td>carlos.mendes@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-999000" data-name="Dra. Julia Roberts" data-specialty="Pediatria" data-status="Ativo">
+                            <td>SP-999000</td>
+                            <td>Dra. Julia Roberts</td>
+                            <td>Pediatria</td>
+                            <td>(11) 9222-3333</td>
+                            <td>julia.roberts@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-121212" data-name="Dr. Paulo Gustavo" data-specialty="Pediatria" data-status="Inativo">
+                            <td>SP-121212</td>
+                            <td>Dr. Paulo Gustavo</td>
+                            <td>Pediatria</td>
+                            <td>(11) 9444-5555</td>
+                            <td>paulo.gustavo@clinica.com</td>
+                            <td><span class="status-badge inactive">Inativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-success" onclick="toggleDoctorStatus(this)">Ativar</button>
+                            </td>
+                        </tr>
+
+                        <!-- Ortopedia (4 médicos) -->
+                        <tr class="doctor-row" data-crm="SP-343434" data-name="Dr. Marcos Mion" data-specialty="Ortopedia" data-status="Ativo">
+                            <td>SP-343434</td>
+                            <td>Dr. Marcos Mion</td>
+                            <td>Ortopedia</td>
+                            <td>(11) 9666-7777</td>
+                            <td>marcos.mion@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-565656" data-name="Dra. Tatá Werneck" data-specialty="Ortopedia" data-status="Ativo">
+                            <td>SP-565656</td>
+                            <td>Dra. Tatá Werneck</td>
+                            <td>Ortopedia</td>
+                            <td>(11) 9888-9999</td>
+                            <td>tata.werneck@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-787878" data-name="Dr. Fabio Porchat" data-specialty="Ortopedia" data-status="Ativo">
+                            <td>SP-787878</td>
+                            <td>Dr. Fabio Porchat</td>
+                            <td>Ortopedia</td>
+                            <td>(11) 9000-1111</td>
+                            <td>fabio.porchat@clinica.com</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                        <tr class="doctor-row" data-crm="SP-909090" data-name="Dra. Ingrid Guimarães" data-specialty="Ortopedia" data-status="Férias">
+                            <td>SP-909090</td>
+                            <td>Dra. Ingrid Guimarães</td>
+                            <td>Ortopedia</td>
+                            <td>(11) 9222-4444</td>
+                            <td>ingrid.guimaraes@clinica.com</td>
+                            <td><span class="status-badge warning">Férias</span></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="editDoctor('SP-123456')">Editar</button>
+                                <button class="btn btn-danger" onclick="toggleDoctorStatus(this)">Desativar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button class="btn" disabled>Anterior</button>
+                    <span>Mostrando todos os 12 médicos</span>
+                    <button class="btn" disabled>Próxima</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Especialidades</h3>
+                    <button class="btn btn-primary" onclick="addSpecialty()">Adicionar Especialidade</button>
+                </div>
+                
+                <div class="specialties-grid">
+                    <div class="specialty-card">
+                        <h4>Cardiologia</h4>
+                        <p>5 médicos</p>
+                    </div>
+                    <div class="specialty-card">
+                        <h4>Pediatria</h4>
+                        <p>3 médicos</p>
+                    </div>
+                    <div class="specialty-card">
+                        <h4>Ortopedia</h4>
+                        <p>4 médicos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script src="../script.js"></script>
+    <script src="medicos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            
+            function filterDoctors() {
+                const searchValue = searchInput.value.toLowerCase();
+                const rows = document.querySelectorAll('.doctor-row');
+                
+                rows.forEach(row => {
+                    const name = row.getAttribute('data-name').toLowerCase();
+                    const crm = row.getAttribute('data-crm').toLowerCase();
+                    const specialty = row.getAttribute('data-specialty').toLowerCase();
+                    
+                    if (name.includes(searchValue) || crm.includes(searchValue) || specialty.includes(searchValue)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+            
+            searchButton.addEventListener('click', filterDoctors);
+            
+            searchButton.addEventListener('click', filterDoctors);
+            
+            searchInput.addEventListener('input', filterDoctors);
+        });
+        
+        // Funções globais para os botões
+        function editDoctor(crm) {
+            // Redirecionar para a página de cadastro com parâmetros
+            window.location.href = `../cadastro/medico.html?crm=${crm}&edit=true`;
+        }
+        
+        function toggleDoctorStatus(button) {
+            const row = button.closest('tr');
+            const statusBadge = row.querySelector('.status-badge');
+            const isInactive = statusBadge.classList.contains('inactive') || statusBadge.classList.contains('warning');
+            
+            if (isInactive) {
+                // Ativar
+                statusBadge.className = 'status-badge active';
+                statusBadge.innerText = 'Ativo';
+                button.className = 'btn btn-danger';
+                button.innerText = 'Desativar';
+                row.setAttribute('data-status', 'Ativo');
+                showNotification('Médico ativado com sucesso!', 'success');
+            } else {
+                // Desativar
+                if (confirm('Tem certeza que deseja desativar este médico?')) {
+                    statusBadge.className = 'status-badge inactive';
+                    statusBadge.innerText = 'Inativo';
+                    button.className = 'btn btn-success';
+                    button.innerText = 'Ativar';
+                    row.setAttribute('data-status', 'Inativo');
+                    showNotification('Médico desativado.', 'warning');
+                }
+            }
+        }
+        
+        // --- GERENCIAMENTO DE ESPECIALIDADES ---
+        const SPECIALTIES_KEY = 'cherry_specialties';
+        
+        const defaultSpecialties = [
+            'Cardiologia',
+            'Pediatria',
+            'Ortopedia',
+            'Dermatologia',
+            'Ginecologia',
+            'Neurologia'
+        ];
+
+        function getSpecialties() {
+            const stored = localStorage.getItem(SPECIALTIES_KEY);
+            if (!stored) {
+                localStorage.setItem(SPECIALTIES_KEY, JSON.stringify(defaultSpecialties));
+                return defaultSpecialties;
+            }
+            return JSON.parse(stored);
+        }
+
+        function saveSpecialties(specialties) {
+            localStorage.setItem(SPECIALTIES_KEY, JSON.stringify(specialties));
+        }
+
+        function renderSpecialties() {
+            const specialties = getSpecialties();
+            const grid = document.querySelector('.specialties-grid');
+            grid.innerHTML = ''; // Limpa grid atual
+            
+            // Obter contagem de médicos por especialidade
+            const medicos = JSON.parse(localStorage.getItem('cherry_medicos')) || [];
+            const counts = {};
+            
+            medicos.forEach(m => {
+                if(m.especialidade) {
+                    counts[m.especialidade] = (counts[m.especialidade] || 0) + 1;
+                }
+            });
+
+            specialties.forEach(spec => {
+                const count = counts[spec] || 0;
+                const card = document.createElement('div');
+                card.className = 'specialty-card';
+                card.innerHTML = `
+                    <h4>${spec}</h4>
+                    <p>${count} médicos</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function addSpecialty() {
+            const name = prompt('Nome da nova especialidade:');
+            if (name) {
+                const specialties = getSpecialties();
+                
+                if (specialties.includes(name)) {
+                    showNotification('Esta especialidade já existe!', 'warning');
+                    return;
+                }
+                
+                specialties.push(name);
+                saveSpecialties(specialties);
+                renderSpecialties();
+                showNotification(`Especialidade "${name}" adicionada!`, 'success');
+            }
+        }
+
+        // Inicializar especialidades ao carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSpecialties();
+        });
+    </script>
+</body>
+</html>

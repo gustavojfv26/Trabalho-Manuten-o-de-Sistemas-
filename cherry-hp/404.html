@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Não Encontrada - Clínica Médica</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        .error-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .error-code {
+            font-size: 96px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .error-message {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .error-description {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .error-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .error-image {
+            margin: 30px 0;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .error-container {
+                margin: 50px 20px;
+                padding: 20px;
+            }
+            
+            .error-code {
+                font-size: 72px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Página Não Encontrada</div>
+        
+        <div class="error-image">
+            <span style="font-size: 64px;">🔍</span>
+        </div>
+        
+        <div class="error-description">
+            <p>Oops! A página que você está tentando acessar não foi encontrada em nosso sistema.</p>
+            <p>Isso pode ter acontecido porque:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li>O endereço foi digitado incorretamente</li>
+                <li>A página foi movida ou removida</li>
+                <li>Houve um erro temporário no sistema</li>
+            </ul>
+        </div>
+        
+        <div class="error-actions">
+            <button class="btn btn-primary" onclick="window.history.back()">Voltar</button>
+            <button class="btn" onclick="window.location.href = '../index.html'">Ir para Dashboard</button>
+        </div>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="color: #7f8c8d; font-size: 14px;">
+                Se você acredita que isso é um erro, entre em contato com o suporte técnico:<br>
+                <strong>suporte@cherryhp.com.br</strong> | <strong>(11) 3333-4444</strong>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Registrar o erro no console para debugging
+        console.error('Página não encontrada:', window.location.href);
+        console.info('Usuário veio de:', document.referrer);
+        
+        // Opcional: enviar estatísticas do erro para o servidor
+        // fetch('/api/error-log', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({
+        //         error: '404',
+        //         url: window.location.href,
+        //         referrer: document.referrer,
+        //         timestamp: new Date().toISOString()
+        //     })
+        // });
+    </script>
+</body>
+</html>
