@@ -234,10 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnRestore = fileInputBackup ? fileInputBackup.nextElementSibling : null;
 
     if (btnBackup) {
-        // Remover event listener antigo se possível (não é fácil sem a referência da função), 
-        // mas como estamos adicionando um novo, o antigo do script.js ainda rodará.
-        // O ideal seria remover o do script.js ou sobrescrever.
-        // Vamos clonar o botão para remover listeners antigos
         const newBtn = btnBackup.cloneNode(true);
         btnBackup.parentNode.replaceChild(newBtn, btnBackup);
         
@@ -382,9 +378,6 @@ window.deleteFeriado = function(index) {
         const feriados = JSON.parse(localStorage.getItem('cherry_feriados')) || [];
         feriados.splice(index, 1);
         localStorage.setItem('cherry_feriados', JSON.stringify(feriados));
-        // Recarregar a tabela chamando a função interna se possível, ou recarregar a página.
-        // Como loadFeriados está dentro do escopo, vamos recarregar a página ou precisamos expor loadFeriados.
-        // Para simplificar e manter consistência com deleteUser:
         location.reload(); 
     }
 };
@@ -412,9 +405,6 @@ window.toggleUserStatus = function(index) {
         if (confirm(`Tem certeza que deseja ${newStatus === 'Ativo' ? 'ativar' : 'desativar'} este usuário?`)) {
             usuarios[index].status = newStatus;
             localStorage.setItem('cherry_usuarios', JSON.stringify(usuarios));
-            // Recarregar a lista de usuários. Como loadUsuarios está encapsulado, recarregamos a página por simplicidade
-            // ou podemos expor loadUsuarios globalmente se quisermos evitar reload.
-            // Para consistência com o resto do código:
             location.reload();
         }
     }
@@ -436,6 +426,5 @@ window.editUser = function(index) {
 };
 
 window.deleteUser = function(index) {
-    // Mantido para compatibilidade se algo ainda chamar, mas agora usamos toggleUserStatus
     toggleUserStatus(index);
 };

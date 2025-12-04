@@ -167,7 +167,7 @@
     <script>
         document.getElementById('usuario-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            e.stopImmediatePropagation(); // Prevent the default script.js handler if possible, or just let it run and overwrite behavior
+            e.stopImmediatePropagation();
             
             const nome = document.getElementById('usuario-nome').value;
             const cpf = document.getElementById('usuario-cpf').value;

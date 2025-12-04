@@ -729,9 +729,6 @@
                 `;
                 
                 consultationModal.style.display = 'flex';
-                
-                // BUG INTENCIONAL: Foco não está sendo colocado no primeiro campo
-                // document.getElementById('paciente-consulta').focus(); // Esta linha está comentada de propósito
             });
             
             // Inicialização
@@ -741,24 +738,20 @@
         // Funções para ações de consultas
         function scheduleAppointment(time) {
             showNotification(`Agendando consulta para ${time}...`, 'info');
-            // Em sistema real, abriria o modal de agendamento com o horário pré-selecionado
             document.getElementById('nova-consulta-btn').click();
         }
         
         function viewAppointment(appointmentId) {
             showNotification(`Visualizando consulta ${appointmentId}...`, 'info');
-            // Em sistema real, abriria um modal com os detalhes completos da consulta
         }
         
         function rescheduleAppointment(appointmentId) {
             showNotification(`Reagendando consulta ${appointmentId}...`, 'info');
-            // Em sistema real, abriria o modal de agendamento com os dados atuais
         }
         
         function cancelAppointment(appointmentId) {
             if (confirm('Tem certeza que deseja cancelar esta consulta?')) {
                 showNotification(`Consulta ${appointmentId} cancelada.`, 'success');
-                // Em sistema real, faria uma requisição para cancelar a consulta
             }
         }
         
@@ -768,20 +761,13 @@
         
         // Função de notificação
         function showNotification(message, type) {
-            // Implementação simples para demonstração
             console.log(`${type.toUpperCase()}: ${message}`);
-            
-            // Em sistema real, usaria um sistema de notificação mais sofisticado
             alert(`${type.toUpperCase()}: ${message}`);
         }
         
-        // BUG INTENCIONAL: Conflito de agendamento não detectado
         function checkSchedulingConflict(doctorId, date, time) {
-            // Esta função deveria verificar se já existe uma consulta marcada
-            // para o mesmo médico no mesmo horário, mas intencionalmente
-            // não está implementada corretamente
             console.log("Verificação de conflito ignorada intencionalmente");
-            return false; // Sempre retorna falso (bug)
+            return false;
         }
         
         // Fechar modal ao clicar fora

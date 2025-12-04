@@ -517,14 +517,12 @@
                 const phone = row.cells[4].innerText;
                 
                 const rowStatus = row.getAttribute('data-status');
-                const rowLoyalty = row.getAttribute('data-loyalty'); // platinum, gold...
+                const rowLoyalty = row.getAttribute('data-loyalty'); 
                 const rowBloodType = row.getAttribute('data-blood-type');
                 
                 const matchesSearch = name.includes(searchValue) || cpf.includes(searchValue) || phone.includes(searchValue);
                 const matchesStatus = !statusValue || rowStatus === statusValue;
-                
-                // Ajuste: verificar se o valor do filtro bate com o atributo
-                // O select retorna 'gold', o atributo é 'gold'
+            
                 const matchesLoyalty = !loyaltyValue || rowLoyalty === loyaltyValue;
                 const matchesBloodType = !bloodTypeValue || rowBloodType === bloodTypeValue;
                 

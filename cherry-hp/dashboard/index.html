@@ -479,9 +479,6 @@
             document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = totalPacientes.toLocaleString('pt-BR');
             document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = totalMedicos;
             document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = faturamento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-            // Atualizar tendências (Simulação visual, lógica real exigiria dados históricos comparativos)
-            // Mantendo estático por enquanto ou randomizando levemente para dar vida
             
             // 4. Próximas Consultas
             renderUpcomingAppointments(consultas);
